@@ -1,23 +1,26 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public static readonly float Lifespan = 10f;
+    public Action OnDeath;
+
     private void Start()
     {
-        StartCoroutine(ScaleOverTime(transform, Vector2.one * 3, Lifespan));
+        StartCoroutine(ScaleOverTime(transform, Vector2.one * 3));
     }
 
-    private IEnumerator ScaleOverTime(Transform targetTransform, Vector3 targetScale, float duration)
+    private IEnumerator ScaleOverTime(Transform targetTransform, Vector3 targetScale)
     {
         Vector2 initialScale = targetTransform.localScale;
         var elapsedTime = 0f;
 
-        while (elapsedTime < duration)
+        while (elapsedTime < Lifespan)
         {
-            targetTransform.localScale = Vector2.Lerp(initialScale, targetScale, elapsedTime / duration);
-            elapsedTime += Time.fixedDeltaTime;
+            targetTransform.localScale = Vector2.Lerp(initialScale, targetScale, Mathf.Clamp01(elapsedTime / Lifespan));
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
 
@@ -29,5 +32,8 @@ public class Player : MonoBehaviour
     private void Die()
     {
         GetComponent<PlayerController>().enabled = false;
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+
+        OnDeath?.Invoke();
     }
 }
