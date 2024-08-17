@@ -1,18 +1,28 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private float timeToScale = 10f;
     private void Start()
     {
-
+        StartCoroutine(ScaleOverTime(transform, Vector2.one * 3, timeToScale));
     }
 
-    // Update is called once per frame
-    private void Update()
+    private IEnumerator ScaleOverTime(Transform targetTransform, Vector3 targetScale, float duration)
     {
+        Vector2 initialScale = targetTransform.localScale;
+        var elapsedTime = 0f;
 
+        while (elapsedTime < duration)
+        {
+            targetTransform.localScale = Vector2.Lerp(initialScale, targetScale, elapsedTime / duration);
+            elapsedTime += Time.fixedDeltaTime;
+            yield return null;
+        }
+
+        targetTransform.localScale = targetScale;
+
+        //Destroy(gameObject);
     }
 }
