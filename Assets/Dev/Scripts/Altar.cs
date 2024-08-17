@@ -1,39 +1,44 @@
-using System.Collections;
 using UnityEngine;
-using Cinemachine;
-using UnityEditor;
+using System.Linq;
 
 public class Altar : MonoBehaviour
 {
     [SerializeField] private float pauseBeforeSpawn = 1f;
-    private GameObject playerPrefab;
-    private CinemachineVirtualCamera cam;
+    [SerializeField] private bool isActive;
+    public bool IsActive => isActive;
+    private GameObject altarLight;
 
     private void Awake()
     {
-        playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level/Prefabs/Player.prefab");
-        cam = FindObjectOfType<CinemachineVirtualCamera>();
+        altarLight = transform.GetChild(0).gameObject;
+        altarLight.SetActive(isActive);
     }
 
-    private void Start()
+    public void Deactivate()
     {
-        Spawn();
-        StartCoroutine(SpawnEntityRoutine());
+        isActive = false;
+        altarLight.SetActive(false);
     }
 
-    private IEnumerator SpawnEntityRoutine()
+    private void Activate()
     {
-        while (true)
+        // deactivate previous altars
+        FindObjectsOfType<Altar>()
+            .Where(a => a != this && a.IsActive)
+            .FirstOrDefault()
+            .Deactivate();
+
+        FindObjectOfType<AudioManager>().Play("flame-ignition");
+
+        isActive = true;
+        altarLight.SetActive(true);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!isActive && other.CompareTag("Player"))
         {
-            yield return new WaitForSeconds(Player.Lifespan + pauseBeforeSpawn);
-            Spawn();
+            Activate();
         }
-    }
-
-    private void Spawn()
-    {
-        var instanciatedEntity = Instantiate(playerPrefab, transform.position, Quaternion.identity);
-        instanciatedEntity.GetComponent<Player>().OnDeath += () => cam.Follow = transform;
-        cam.Follow = instanciatedEntity.transform;
     }
 }

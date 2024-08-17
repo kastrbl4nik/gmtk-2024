@@ -12,6 +12,7 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
     private const float KeyShrinkingScale = 5f;
     public Action OnDeath;
     private GameObject keyContainer;
+    public bool IsAlive { get; set; } = true;
 
     private void Awake()
     {
@@ -128,6 +129,7 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
 
     private void Die()
     {
+        IsAlive = false;
         DropKey();
         GetComponent<PlayerController>().enabled = false;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
