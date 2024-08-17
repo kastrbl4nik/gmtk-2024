@@ -45,12 +45,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        Play("Despacito");
-        Play("ambience");
-    }
-
     public void Play(string name, float maxPitch = float.NaN, float minPitch = float.NaN)
     {
         var sound = Array.Find(Sounds, sound => sound.Name == name);
