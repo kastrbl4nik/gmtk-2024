@@ -79,8 +79,8 @@ public class PlayerController : MonoBehaviour, IPlayerController
         Physics2D.queriesStartInColliders = false;
 
         // Ground and Ceiling
-        bool groundHit = Physics2D.CapsuleCast(collider.bounds.center, collider.size, collider.direction, 0, Vector2.down, stats.GrounderDistance, ~stats.PlayerLayer);
-        bool ceilingHit = Physics2D.CapsuleCast(collider.bounds.center, collider.size, collider.direction, 0, Vector2.up, stats.GrounderDistance, ~stats.PlayerLayer);
+        bool groundHit = Physics2D.CapsuleCast(collider.bounds.center, collider.size * transform.localScale, collider.direction, 0, Vector2.down, stats.GrounderDistance * transform.localScale.y, ~stats.PlayerLayer);
+        bool ceilingHit = Physics2D.CapsuleCast(collider.bounds.center, collider.size * transform.localScale, collider.direction, 0, Vector2.up, stats.GrounderDistance * transform.localScale.y, ~stats.PlayerLayer);
 
         // Hit a Ceiling
         if (ceilingHit)
@@ -193,7 +193,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     #endregion
 
-    private void ApplyMovement() => rb.velocity = frameVelocity;
+    private void ApplyMovement()
+    {
+        rb.velocity = frameVelocity;
+    }
 
 #if UNITY_EDITOR
     private void OnValidate()
