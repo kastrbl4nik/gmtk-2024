@@ -1,13 +1,23 @@
 using System.Collections;
 using UnityEngine;
+using Cinemachine;
+using UnityEditor;
 
 public class Altar : MonoBehaviour
 {
-    [SerializeField] private GameObject entityToSpawn;
+    [SerializeField] private float pauseBeforeSpawn = 1f;
+    private GameObject playerPrefab;
+    private CinemachineVirtualCamera cam;
+
+    private void Awake()
+    {
+        playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level/Prefabs/Player.prefab");
+        cam = FindObjectOfType<CinemachineVirtualCamera>();
+    }
 
     private void Start()
     {
-        Instantiate(entityToSpawn, transform.position, Quaternion.identity);
+        Spawn();
         StartCoroutine(SpawnEntityRoutine());
     }
 
@@ -15,8 +25,15 @@ public class Altar : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Player.Lifespan);
-            Instantiate(entityToSpawn, transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(Player.Lifespan + pauseBeforeSpawn);
+            Spawn();
         }
+    }
+
+    private void Spawn()
+    {
+        var instanciatedEntity = Instantiate(playerPrefab, transform.position, Quaternion.identity);
+        instanciatedEntity.GetComponent<Player>().OnDeath += () => cam.Follow = transform;
+        cam.Follow = instanciatedEntity.transform;
     }
 }
