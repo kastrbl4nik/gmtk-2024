@@ -18,11 +18,16 @@ public class Player : MonoBehaviour, IWeightable
     private IEnumerator ScaleOverTime(Transform targetTransform, Vector3 targetScale)
     {
         Vector2 initialScale = targetTransform.localScale;
+        var scaleDifference = targetScale.x  / initialScale.x;
+        var targetWeight = Weight * scaleDifference;
+        var initialWeight = Weight;
         var elapsedTime = 0f;
 
         while (elapsedTime < Lifespan)
         {
             targetTransform.localScale = Vector2.Lerp(initialScale, targetScale, Mathf.Clamp01(elapsedTime / Lifespan));
+            Weight = Mathf.Lerp(initialWeight, targetWeight, elapsedTime / Lifespan);
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
