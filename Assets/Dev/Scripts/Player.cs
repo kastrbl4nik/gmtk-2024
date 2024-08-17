@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float timeToScale = 10f;
+    public static readonly float Lifespan = 10f;
     private void Start()
     {
-        StartCoroutine(ScaleOverTime(transform, Vector2.one * 3, timeToScale));
+        StartCoroutine(ScaleOverTime(transform, Vector2.one * 3, Lifespan));
     }
 
     private IEnumerator ScaleOverTime(Transform targetTransform, Vector3 targetScale, float duration)
@@ -23,6 +23,11 @@ public class Player : MonoBehaviour
 
         targetTransform.localScale = targetScale;
 
-        //Destroy(gameObject);
+        Die();
+    }
+
+    private void Die()
+    {
+        GetComponent<PlayerController>().enabled = false;
     }
 }
