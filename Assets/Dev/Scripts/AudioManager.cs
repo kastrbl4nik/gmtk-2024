@@ -45,6 +45,12 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        FindObjectOfType<AudioManager>().Play("horror-ambience");
+        FindObjectOfType<AudioManager>().Play("cave-droplets");
+    }
+
     public void Play(string name, float maxPitch = float.NaN, float minPitch = float.NaN)
     {
         var sound = Array.Find(Sounds, sound => sound.Name == name);

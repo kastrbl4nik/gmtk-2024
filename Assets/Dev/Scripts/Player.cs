@@ -8,6 +8,7 @@ public class Player : MonoBehaviour, IWeightable
 
     public static readonly float Lifespan = 10f;
     public Action OnDeath;
+    public bool IsAlive { get; set; } = true;
 
     private void Start()
     {
@@ -32,8 +33,9 @@ public class Player : MonoBehaviour, IWeightable
         Die();
     }
 
-    private void Die()
+    public void Die()
     {
+        IsAlive = false;
         GetComponent<PlayerController>().enabled = false;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
 

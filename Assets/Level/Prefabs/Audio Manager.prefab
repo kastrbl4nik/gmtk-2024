@@ -44,4 +44,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 138066d695617ce41b4d952f45dfaec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sounds: []
+  Sounds:
+  - Clip: {fileID: 8300000, guid: 8395c99b3bb883141beced6797bb9fe0, type: 3}
+    Name: cave-droplets
+    Volume: 0.3
+    Pitch: 1
+    Loop: 1
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 0488b9c903bd6894aa9f0e35504e24fe, type: 3}
+    Name: horror-ambience
+    Volume: 0.15
+    Pitch: 1
+    Loop: 1
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 3cf2cb38a7429af4cbed8de4fe1766de, type: 3}
+    Name: flame-ignition
+    Volume: 0.6
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 9227f7799779ab54fa1ad7588b79b1ac, type: 3}
+    Name: spawn
+    Volume: 0.4
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
