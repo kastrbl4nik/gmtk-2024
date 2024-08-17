@@ -25,8 +25,9 @@ public class Player : MonoBehaviour, IWeightable
 
         while (elapsedTime < Lifespan)
         {
-            targetTransform.localScale = Vector2.Lerp(initialScale, targetScale, Mathf.Clamp01(elapsedTime / Lifespan));
-            Weight = Mathf.Lerp(initialWeight, targetWeight, elapsedTime / Lifespan);
+            var alpha = Mathf.Clamp01(elapsedTime / Lifespan);
+            targetTransform.localScale = Vector2.Lerp(initialScale, targetScale, alpha);
+            Weight = Mathf.Lerp(initialWeight, targetWeight, alpha);
 
             elapsedTime += Time.deltaTime;
             yield return null;
