@@ -2,13 +2,16 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IWeightable
 {
+    public float Weight { get; set; }
+
     public static readonly float Lifespan = 10f;
     public Action OnDeath;
 
     private void Start()
     {
+        Weight = 10f;
         StartCoroutine(ScaleOverTime(transform, Vector2.one * 3));
     }
 
