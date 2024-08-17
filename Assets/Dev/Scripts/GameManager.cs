@@ -22,4 +22,9 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(index);
     }
+
+    public void LoadNextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 }
