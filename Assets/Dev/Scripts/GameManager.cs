@@ -32,10 +32,15 @@ public class GameManager : MonoBehaviour
         LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void ReloadScene()
+    {
+        LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     private IEnumerator LoadSceneWithTransition(int index)
     {
         animator.SetTrigger("End");
-        yield return new WaitForSeconds(transitionTime);
+        yield return new WaitForSecondsRealtime(transitionTime);
         var asyncLoad = SceneManager.LoadSceneAsync(index);
         asyncLoad.completed += (operation) => animator.SetTrigger("Start");
     }

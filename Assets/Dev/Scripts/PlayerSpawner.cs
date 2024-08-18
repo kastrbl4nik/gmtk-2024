@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerSpawner : MonoBehaviour
 {
     [SerializeField] private float spawnInterval = 10f;
-    [SerializeField] private float pauseBeforeSpawn = 4f;
+    [SerializeField] private float pauseBeforeSpawn = 4.5f;
     [SerializeField] private GameObject spawnEffect;
     private CinemachineVirtualCamera cam;
     private GameObject playerPrefab;
