@@ -16,7 +16,7 @@ public class PlayerSpawner : MonoBehaviour
 
     private void Awake()
     {
-        playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level/Prefabs/Player.prefab");
+        playerPrefab = Resources.Load<GameObject>("Prefabs/Player");
         cam = FindObjectOfType<CinemachineVirtualCamera>();
 
         LocateLastAltar();

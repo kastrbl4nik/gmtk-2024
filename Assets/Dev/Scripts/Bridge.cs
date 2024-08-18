@@ -19,7 +19,7 @@ public class Bridge : MonoBehaviour
 
     private void Awake()
     {
-        bridgeTilePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level/Prefabs/Rope Bridge Tile.prefab");
+        bridgeTilePrefab = Resources.Load<GameObject>("Prefabs/Rope Bridge Tile");
         var tiles = GetBridgeTiles();
         var lastInChain = new GameObject("Bridge Start") { transform = { position = startPosition } };
         var lastInChainRigidBody = lastInChain.AddComponent<Rigidbody2D>();
