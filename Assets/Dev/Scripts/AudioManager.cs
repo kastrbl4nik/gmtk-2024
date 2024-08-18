@@ -11,6 +11,8 @@ public class Sound
 
     [Range(.1f, 3f)] public float Pitch;
 
+    public bool RandomizePitch = false;
+
     public bool Loop;
 
     [HideInInspector] public AudioSource Source;
@@ -58,6 +60,11 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning("AudioManager: Cannot find sound " + name);
             return;
+        }
+
+        if (sound.RandomizePitch)
+        {
+            sound.Source.pitch = UnityEngine.Random.Range(.8f, 1.2f);
         }
 
         sound.Source.Play();

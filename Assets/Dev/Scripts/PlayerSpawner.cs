@@ -8,6 +8,7 @@ public class PlayerSpawner : MonoBehaviour
 {
     [SerializeField] private float spawnInterval = 10f;
     [SerializeField] private float pauseBeforeSpawn = 4f;
+    [SerializeField] private GameObject spawnEffect;
     private CinemachineVirtualCamera cam;
     private GameObject playerPrefab;
     private Player player;
@@ -58,6 +59,7 @@ public class PlayerSpawner : MonoBehaviour
     private void Spawn()
     {
         LocateLastAltar();
+        Instantiate(spawnEffect, lastAltar.transform.position, Quaternion.identity);
         player = Instantiate(playerPrefab, lastAltar.transform.position, Quaternion.identity).GetComponent<Player>();
         cam.Follow = player.transform;
     }
