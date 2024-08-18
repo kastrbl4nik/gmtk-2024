@@ -64,7 +64,8 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
     {
         if (other.gameObject.CompareTag("Key") && !IsHoldingKey && Key == null)
         {
-            Key = other.gameObject;
+            Key = other.gameObject.transform.parent.gameObject;
+            Key.GetComponentInChildren<CapsuleCollider2D>().enabled = false;
             FindObjectOfType<AudioManager>().Play("keyPickup");
             StartCoroutine(MoveKeyToContainer());
         }
@@ -78,7 +79,7 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
         }
         var originalScale = Key.transform.localScale;
         var targetScale = originalScale / KeyShrinkingScale;
-        var duration = 0.5f;
+        var duration = 0.2f;
         var elapsedTime = 0f;
 
         while (elapsedTime < duration)
@@ -114,6 +115,8 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
         }
         var originalScale = Key.transform.localScale;
         var targetScale = originalScale * KeyShrinkingScale;
+        var originalPosition = Key.transform.position;
+        var targetPosition = originalPosition + (Vector3.up * 2);
         var duration = 0.5f;
         var elapsedTime = 0f;
         while (elapsedTime < duration)
@@ -121,9 +124,20 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
             elapsedTime += Time.deltaTime;
             var t = Mathf.Clamp01(elapsedTime / duration);
             Key.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+            Key.transform.localPosition = Vector3.Lerp(originalPosition, targetPosition, t);
             yield return null;
         }
+
         Key.transform.localScale = targetScale;
+        Key.transform.localPosition = targetPosition;
+        Key.GetComponentInChildren<CapsuleCollider2D>().enabled = true;
+        Key = null;
+    }
+
+    public void UseKey()
+    {
+        IsHoldingKey = false;
+        Destroy(Key);
         Key = null;
     }
 
