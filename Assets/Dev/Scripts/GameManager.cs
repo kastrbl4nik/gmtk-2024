@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    private Animator animator;
+    private readonly float transitionTime = 1f;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -17,14 +20,22 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        animator = GetComponentInChildren<Animator>();
     }
     public void LoadScene(int index)
     {
-        SceneManager.LoadScene(index);
+        StartCoroutine(LoadSceneWithTransition(index));
     }
 
     public void LoadNextScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    private IEnumerator LoadSceneWithTransition(int index)
+    {
+        animator.SetTrigger("Start");
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(index);
     }
 }

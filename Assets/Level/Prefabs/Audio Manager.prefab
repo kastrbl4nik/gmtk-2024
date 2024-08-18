@@ -57,15 +57,15 @@ MonoBehaviour:
     Pitch: 1
     Loop: 1
     Source: {fileID: 0}
-  - Clip: {fileID: 8300000, guid: 3cf2cb38a7429af4cbed8de4fe1766de, type: 3}
+  - Clip: {fileID: 8300000, guid: 3c3b2cbf65ce56445b422fb420126338, type: 3}
     Name: flame-ignition
-    Volume: 0.6
+    Volume: 1
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
   - Clip: {fileID: 8300000, guid: 9227f7799779ab54fa1ad7588b79b1ac, type: 3}
     Name: spawn
-    Volume: 0.4
+    Volume: 0.3
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
