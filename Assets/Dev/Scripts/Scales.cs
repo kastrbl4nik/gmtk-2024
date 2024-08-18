@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Scales : MonoBehaviour
 {
-    private const float RotationSpeed = 50f;
+    private const float RotationSpeed = 30f;
     private const float MinAngle = -30f;
     private const float MaxAngle = 30f;
     [SerializeField] private ScalesPlatform leftPlatform;
@@ -14,14 +14,14 @@ public class Scales : MonoBehaviour
     private readonly HashSet<GameObject> objectsOnRightPlatform = new();
     private float currentAngle;
 
-    private void Update()
+    private void FixedUpdate()
     {
         var OnLeftPlatform = new Hashtable();
         var OnRightPlatform = new Hashtable();
         IWeightable.GetIncidentWeightableObjects(OnLeftPlatform, new HashSet<GameObject>(objectsOnLeftPlatform));
         IWeightable.GetIncidentWeightableObjects(OnRightPlatform, new HashSet<GameObject>(objectsOnRightPlatform));
         var difference = OnLeftPlatform.Count - OnRightPlatform.Count;
-        var rotationAngle = difference * RotationSpeed * Time.deltaTime;
+        var rotationAngle = difference * RotationSpeed * Time.fixedDeltaTime;
         currentAngle += rotationAngle;
 
         currentAngle = Mathf.Clamp(currentAngle, MinAngle, MaxAngle);
