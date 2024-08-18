@@ -197,10 +197,6 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
     {
 
         StopAllCoroutines();
-        // StopCoroutine(nameof(GrowAndFlyAway));
-        // StopCoroutine(nameof(MoveKeyToContainer));
-        // StopCoroutine(nameof(ShowLifeline));
-        // StopCoroutine(nameof(ScaleOverTime));
         IsAlive = false;
         if (lifeIndicator != null)
         {
@@ -209,7 +205,8 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
         }
         DropKey();
         GetComponent<PlayerController>().enabled = false;
-        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        GetComponent<Rigidbody2D>().drag = 1000;
+        GetComponent<Rigidbody2D>().gravityScale = 3000;
 
         OnDeath?.Invoke();
     }
