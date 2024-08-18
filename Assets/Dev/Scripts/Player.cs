@@ -32,7 +32,7 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
     private IEnumerator ScaleOverTime(Transform targetTransform, Vector3 targetScale)
     {
         Vector2 initialScale = targetTransform.localScale;
-        var scaleDifference = targetScale.x  / initialScale.x;
+        var scaleDifference = targetScale.x / initialScale.x;
         var targetWeight = Weight * scaleDifference;
         var initialWeight = Weight;
         var elapsedTime = 0f;

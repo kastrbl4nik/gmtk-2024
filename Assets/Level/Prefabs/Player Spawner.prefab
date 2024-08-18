@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnInterval: 10
   pauseBeforeSpawn: 4
+  spawnEffect: {fileID: 5292604061044933101, guid: 616a95c71f7530e40b02334b261fe809, type: 3}
