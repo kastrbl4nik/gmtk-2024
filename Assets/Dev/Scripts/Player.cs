@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class Player : MonoBehaviour, IWeightable, IKeyable
 {
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
     {
         Weight = 10f;
         StartCoroutine(ScaleOverTime(transform, Vector2.one * 3));
+        StartCoroutine(ShowLifeline());
     }
 
     private IEnumerator ScaleOverTime(Transform targetTransform, Vector3 targetScale)
@@ -51,6 +53,56 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
 
         Die();
     }
+
+    private IEnumerator ShowLifeline()
+    {
+        var lifeLineWidth = 2f;
+        var lifeLineHeight = 0.2f;
+        var initialSize = new Vector3(lifeLineWidth * 100, lifeLineHeight * 100, 1);
+        var targetSize = new Vector3(0, lifeLineHeight * 100, 1);
+        var life = CreateRectangle("Life", initialSize, transform.position + new Vector3(0, 1, 0));
+        life.transform.SetParent(transform);
+        var lifeRenderer = life.GetComponent<Renderer>();
+
+        var elapsedTime = 0f;
+        var halfTime = Lifespan / 2;
+        var halfSize = initialSize / new Vector2(2, 1);
+
+        while (elapsedTime < halfTime)
+        {
+            var alpha = Mathf.Clamp01(elapsedTime / halfTime);
+            life.transform.localScale = Vector2.Lerp(initialSize, halfSize, alpha);
+            lifeRenderer.material.color = Color.Lerp(Color.green, Color.yellow, alpha);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        elapsedTime = 0f;
+        while (elapsedTime < halfTime)
+        {
+            var alpha = Mathf.Clamp01(elapsedTime / halfTime);
+            life.transform.localScale = Vector2.Lerp(halfSize, targetSize, alpha);
+            lifeRenderer.material.color = Color.Lerp(Color.green, Color.yellow, alpha);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        Destroy(life);
+    }
+
+    private GameObject CreateRectangle(string rectangleName, Vector3 size, Vector3 position)
+    {
+        var rectangle = new GameObject(rectangleName);
+        var spriteRenderer = rectangle.AddComponent<SpriteRenderer>();
+        var texture = new Texture2D(1, 1);
+        texture.SetPixel(0, 0, Color.white);
+        texture.Apply();
+        var sprite = Sprite.Create(texture, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f));
+        spriteRenderer.sprite = sprite;
+        rectangle.transform.localScale = size;
+        rectangle.transform.localPosition = position;
+        return rectangle;
+    }
+
 
     private void Update()
     {
