@@ -1,13 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Bridge : MonoBehaviour
 {
-    private const int MaxObjectsOnBridge = 20;
     private const float MaxWeightToHandle = 20;
     private readonly Dictionary<GameObject, int> objectsOnBridge = new();
+    private GameObject bridgeTilePrefab;
+    public Vector2 startPosition;
+    public Vector2 endPosition;
+    public List<GameObject> bridgeTiles;
+    [Range(0.2f, 1f)] public float tileLength = 0.5f;
+    [Range(0.1f, 0.5f)] public float tileHeight = 0.2f;
+    [Range(0f, 0.1f)] public float betweenTilesGap = 0.05f;
+
+    private void Awake()
+    {
+        bridgeTilePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level/Prefabs/Rope Bridge Tile.prefab");
+        var tiles = GetBridgeTiles();
+        var lastInChain = new GameObject("Bridge Start") { transform = { position = startPosition } };
+        var lastInChainRigidBody = lastInChain.AddComponent<Rigidbody2D>();
+        lastInChainRigidBody.bodyType = RigidbodyType2D.Static;
+        lastInChain.AddComponent<CircleCollider2D>().radius = 0.02f;
+        lastInChain.transform.SetParent(transform);
+        foreach (var tilePositionRotation in tiles)
+        {
+            var nextTile = Instantiate(bridgeTilePrefab, tilePositionRotation.Key, tilePositionRotation.Value, transform);
+            bridgeTiles.Add(nextTile);
+            var tileHingeJoint = nextTile.GetComponent<HingeJoint2D>();
+            tileHingeJoint.connectedBody = lastInChainRigidBody;
+            lastInChainRigidBody = nextTile.GetComponent<Rigidbody2D>();
+        }
+
+        var endOfBridge = new GameObject("Bridge End");
+        endOfBridge.transform.SetParent(transform);
+        endOfBridge.transform.position = endPosition;
+        endOfBridge.AddComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        var hingeJoint2D = endOfBridge.AddComponent<HingeJoint2D>();
+        hingeJoint2D.connectedBody = lastInChainRigidBody;
+        hingeJoint2D.enableCollision = true;
+        endOfBridge.AddComponent<CircleCollider2D>().radius = 0.02f;
+    }
+
+    private List<KeyValuePair<Vector3, Quaternion>> GetBridgeTiles()
+    {
+        var tiles = new List<KeyValuePair<Vector3, Quaternion>>();
+        var bridgeLength = Vector3.Distance(endPosition, startPosition);
+        var bridgeDirection = (endPosition - startPosition).normalized;
+        var totalTileLength = tileLength + betweenTilesGap;
+        var tilesAmount = Mathf.FloorToInt(bridgeLength / totalTileLength);
+        var tileDirection = new Vector2(-bridgeDirection.y, bridgeDirection.x);
+        for (var i = 0; i < tilesAmount; i++)
+        {
+            var tilePosition = startPosition + (bridgeDirection * (i * totalTileLength));
+            tilePosition.x += totalTileLength / 2;
+            tilePosition.y += tileHeight / 2;
+            var rotation = Quaternion.LookRotation(Vector3.forward, tileDirection);
+            tiles.Add(new KeyValuePair<Vector3, Quaternion>(tilePosition, rotation));
+        }
+
+        return tiles;
+    }
 
     private void Update()
     {
@@ -74,6 +130,21 @@ public class Bridge : MonoBehaviour
 
     private void Break()
     {
-        Destroy(gameObject, 2f);
+        var middleTile = bridgeTiles[bridgeTiles.Count / 2];
+        Destroy(middleTile);
+    }
+
+    private void OnDrawGizmos()
+    {
+        var tiles = GetBridgeTiles();
+        foreach (var tile in tiles)
+        {
+            Gizmos.matrix = Matrix4x4.TRS(tile.Key, tile.Value, Vector3.one);
+            Gizmos.DrawCube(Vector3.zero, new Vector3(tileLength, tileHeight, 0.1f));
+            Gizmos.matrix = Matrix4x4.identity;
+        }
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(startPosition, 0.2f);
+        Gizmos.DrawWireSphere(endPosition, 0.2f);
     }
 }
