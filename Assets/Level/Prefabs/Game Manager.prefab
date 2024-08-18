@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 1491450877460073194}
   - component: {fileID: 2604994237227221292}
   m_Layer: 5
-  m_Name: Crossfade
+  m_Name: Scene Transition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,7 +158,7 @@ Animator:
   m_GameObject: {fileID: 6733478011178061256}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7829aa6f6a5f75345a2a1a92dbe1636c, type: 2}
+  m_Controller: {fileID: 9100000, guid: ba0612f2fd759394b8017190d95231e0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

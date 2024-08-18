@@ -51,22 +51,13 @@ public class AudioManager : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("cave-droplets");
     }
 
-    public void Play(string name, float maxPitch = float.NaN, float minPitch = float.NaN)
+    public void Play(string name)
     {
         var sound = Array.Find(Sounds, sound => sound.Name == name);
-        if (sound == null)
+        if (sound == null || sound.Source == null)
         {
             Debug.LogWarning("AudioManager: Cannot find sound " + name);
             return;
-        }
-
-        if (float.IsNaN(maxPitch) || float.IsNaN(minPitch))
-        {
-            sound.Source.pitch = sound.Pitch;
-        }
-        else
-        {
-            sound.Source.pitch = sound.Pitch + UnityEngine.Random.Range(minPitch, maxPitch);
         }
 
         sound.Source.Play();
