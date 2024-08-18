@@ -34,8 +34,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator LoadSceneWithTransition(int index)
     {
-        animator.SetTrigger("Start");
+        animator.SetTrigger("End");
         yield return new WaitForSeconds(transitionTime);
-        SceneManager.LoadScene(index);
+        var asyncLoad = SceneManager.LoadSceneAsync(index);
+        asyncLoad.completed += (operation) => animator.SetTrigger("Start");
     }
 }

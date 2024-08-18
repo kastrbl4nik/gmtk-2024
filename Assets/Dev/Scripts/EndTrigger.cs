@@ -6,6 +6,7 @@ public class EndTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            StopAllCoroutines();
             FindObjectOfType<GameManager>().LoadNextScene();
         }
     }
