@@ -160,3 +160,4 @@ fabric.properties
 # Unity builds
 
 demo-build/
+demo-build-local/
