@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class Player : MonoBehaviour, IWeightable, IKeyable
 {
@@ -16,6 +15,8 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
     private GameObject keyContainer;
     public bool IsAlive { get; set; } = true;
 
+    private float timeSinceBorn = 0f;
+
     private void Awake()
     {
         keyContainer = new GameObject("KeyContainer")
@@ -29,7 +30,6 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
     {
         Weight = 10f;
         StartCoroutine(ScaleOverTime(transform, Vector2.one * 3));
-        StartCoroutine(ShowLifeline());
     }
 
     private IEnumerator ScaleOverTime(Transform targetTransform, Vector3 targetScale)
@@ -55,61 +55,17 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
         Die();
     }
 
-    private IEnumerator ShowLifeline()
-    {
-        var lifeLineWidth = 2f;
-        var lifeLineHeight = 0.2f;
-        var initialSize = new Vector3(lifeLineWidth * 100, lifeLineHeight * 100, 1);
-        var targetSize = new Vector3(0, lifeLineHeight * 100, 1);
-        lifeIndicator = CreateRectangle("Life", initialSize, transform.position + new Vector3(0, 1, 0));
-        lifeIndicator.transform.SetParent(transform);
-        var lifeRenderer = lifeIndicator.GetComponent<Renderer>();
-        lifeRenderer.sortingOrder = 6;
-
-        var elapsedTime = 0f;
-        var halfTime = Lifespan / 2;
-        var halfSize = initialSize / new Vector2(2, 1);
-
-        while (elapsedTime < halfTime)
-        {
-            var alpha = Mathf.Clamp01(elapsedTime / halfTime);
-            lifeIndicator.transform.localScale = Vector2.Lerp(initialSize, halfSize, alpha);
-            lifeRenderer.material.color = Color.Lerp(Color.green, Color.yellow, alpha);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        elapsedTime = 0f;
-        while (elapsedTime < halfTime)
-        {
-            var alpha = Mathf.Clamp01(elapsedTime / halfTime);
-            lifeIndicator.transform.localScale = Vector2.Lerp(halfSize, targetSize, alpha);
-            lifeRenderer.material.color = Color.Lerp(Color.yellow, Color.red, alpha);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-    }
-
-    private GameObject CreateRectangle(string rectangleName, Vector3 size, Vector3 position)
-    {
-        var rectangle = new GameObject(rectangleName);
-        var spriteRenderer = rectangle.AddComponent<SpriteRenderer>();
-        var texture = new Texture2D(1, 1);
-        texture.SetPixel(0, 0, Color.white);
-        texture.Apply();
-        var sprite = Sprite.Create(texture, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f));
-        spriteRenderer.sprite = sprite;
-        rectangle.transform.localScale = size;
-        rectangle.transform.localPosition = position;
-        return rectangle;
-    }
-
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
             DropKey();
+        }
+        if (IsAlive)
+        {
+
+            timeSinceBorn += Time.deltaTime;
         }
     }
 
@@ -187,7 +143,7 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
             }
             else
             {
-                var positionDifference = (newPosition - Key.transform.localPosition);
+                var positionDifference = newPosition - Key.transform.localPosition;
                 targetPosition -= positionDifference;
             }
             Key.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
@@ -223,5 +179,10 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
         GetComponent<Rigidbody2D>().gravityScale = 3000;
 
         OnDeath?.Invoke();
+    }
+
+    public float GetLifePercentage()
+    {
+        return Mathf.Clamp01((Lifespan - timeSinceBorn) / Lifespan);
     }
 }
