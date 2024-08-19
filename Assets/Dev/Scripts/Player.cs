@@ -21,7 +21,7 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
     {
         keyContainer = new GameObject("KeyContainer")
         {
-            transform = { position = transform.position + new Vector3(0.3f, 0.6f, 0f) }
+            transform = { position = transform.position + new Vector3(0.6f, 0.8f, 0f) }
         };
         keyContainer.transform.SetParent(transform);
     }
