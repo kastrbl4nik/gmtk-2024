@@ -191,7 +191,7 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
         GetComponent<PlayerController>().enabled = false;
         GetComponent<PlayerAnimator>().enabled = false;
         GetComponent<Rigidbody2D>().drag = 1000;
-        GetComponent<Rigidbody2D>().gravityScale = 3000;
+        GetComponent<Rigidbody2D>().gravityScale = 1000;
 
         OnDeath?.Invoke();
     }
