@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour, IWeightable, IKeyable
@@ -13,6 +14,8 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
     private const float KeyShrinkingScale = 5f;
     public Action OnDeath;
     private GameObject keyContainer;
+    private PlayerAnimator playerAnimator;
+    [SerializeField] private GameObject[] ageStages;
     public bool IsAlive { get; set; } = true;
 
     private float timeSinceBorn = 0f;
@@ -24,6 +27,8 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
             transform = { position = transform.position + new Vector3(0.6f, 0.8f, 0f) }
         };
         keyContainer.transform.SetParent(transform);
+        playerAnimator = GetComponentInParent<PlayerAnimator>();
+        playerAnimator.SetSprite(ageStages.First());
     }
 
     private void Start()
@@ -34,6 +39,8 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
 
     private IEnumerator ScaleOverTime(Transform targetTransform, Vector3 targetScale)
     {
+        var timePerStage = Lifespan / ageStages.Length;
+        var stageNumber = 0;
         Vector2 initialScale = targetTransform.localScale;
         var scaleDifference = targetScale.x / initialScale.x;
         var targetWeight = Weight * scaleDifference;
@@ -45,6 +52,14 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
             var alpha = Mathf.Clamp01(elapsedTime / Lifespan);
             targetTransform.localScale = Vector2.Lerp(initialScale, targetScale, alpha);
             Weight = Mathf.Lerp(initialWeight, targetWeight, alpha);
+
+            if (elapsedTime >= timePerStage * (stageNumber + 1))
+            {
+                ageStages[stageNumber].SetActive(false);
+                stageNumber++;
+                ageStages[stageNumber].SetActive(true);
+                playerAnimator.SetSprite(ageStages[stageNumber]);
+            }
 
             elapsedTime += Time.deltaTime;
             yield return null;
