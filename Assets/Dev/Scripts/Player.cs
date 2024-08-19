@@ -86,7 +86,7 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Key") && !IsHoldingKey && Key == null)
+        if (IsAlive && other.gameObject.CompareTag("Key") && !IsHoldingKey && Key == null)
         {
             Key = other.gameObject.transform.parent.gameObject;
             Key.GetComponentInChildren<CapsuleCollider2D>().enabled = false;
@@ -126,6 +126,12 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
         {
             return;
         }
+
+        DropKeyForced();
+    }
+
+    private void DropKeyForced()
+    {
         IsHoldingKey = false;
         Key.transform.SetParent(null);
         StartCoroutine(GrowAndFlyAway());
@@ -140,7 +146,7 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
         var keyCollider = Key.GetComponentInChildren<CapsuleCollider2D>();
         keyCollider.enabled = true;
         var originalScale = Key.transform.localScale;
-        var targetScale = originalScale * KeyShrinkingScale;
+        var targetScale = Vector3.one;
         var originalPosition = Key.transform.position;
         var targetPosition = originalPosition + (Vector3.up * 2);
         var duration = 0.5f;
@@ -179,8 +185,8 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
 
     public void Die()
     {
-
-        StopAllCoroutines();
+        StopCoroutine(nameof(ScaleOverTime));
+        StopCoroutine(nameof(MoveKeyToContainer));
         IsAlive = false;
         if (lifeIndicator != null)
         {
