@@ -217,6 +217,7 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
         }
         DropKey();
         GetComponent<PlayerController>().enabled = false;
+        GetComponent<PlayerAnimator>().enabled = false;
         GetComponent<Rigidbody2D>().drag = 1000;
         GetComponent<Rigidbody2D>().gravityScale = 3000;
 
