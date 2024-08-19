@@ -165,6 +165,8 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
         {
             yield break;
         }
+        var keyCollider = Key.GetComponentInChildren<CapsuleCollider2D>();
+        keyCollider.enabled = true;
         var originalScale = Key.transform.localScale;
         var targetScale = originalScale * KeyShrinkingScale;
         var originalPosition = Key.transform.position;
@@ -175,14 +177,24 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
         {
             elapsedTime += Time.deltaTime;
             var t = Mathf.Clamp01(elapsedTime / duration);
+            var collisions = new Collider2D[1];
+            var numberOfCollisions = Physics2D.OverlapCollider(keyCollider, new ContactFilter2D(), collisions);
+            var newPosition = Vector3.Lerp(originalPosition, targetPosition, t);
+            if (numberOfCollisions == 0)
+            {
+                Key.transform.localPosition = newPosition;
+            }
+            else
+            {
+                var positionDifference = (newPosition - Key.transform.localPosition);
+                targetPosition -= positionDifference;
+            }
             Key.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
-            Key.transform.localPosition = Vector3.Lerp(originalPosition, targetPosition, t);
             yield return null;
         }
 
         Key.transform.localScale = targetScale;
         Key.transform.localPosition = targetPosition;
-        Key.GetComponentInChildren<CapsuleCollider2D>().enabled = true;
         Key = null;
     }
 
