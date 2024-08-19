@@ -73,3 +73,87 @@ MonoBehaviour:
     RandomizePitch: 0
     Loop: 0
     Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 47a6b8ef407afcd20b7921f01afd4812, type: 3}
+    Name: groundHit
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: d57872202f194f25da43014075309bbc, type: 3}
+    Name: jump
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: e0c28b72a49e29496833968ed9137d71, type: 3}
+    Name: footsteps1
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 8cafd714c079c652bb609675ca5ead72, type: 3}
+    Name: footsteps2
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 520ffd985e2ca48c98d5d07d1c53a072, type: 3}
+    Name: footsteps3
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: dd7b22156fa01efc693e9b27db47b640, type: 3}
+    Name: footsteps4
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 2b7b3b048e3b2c785915eda3f240f456, type: 3}
+    Name: footsteps5
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 3112c98bb18935a2db03fc2e7fe3cbff, type: 3}
+    Name: footsteps6
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: aac0176af3bc4501099578b811582d59, type: 3}
+    Name: footsteps7
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: d5fd8ebbc26f35d0f816dacb6c1865db, type: 3}
+    Name: footsteps8
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 603b9b04bafc9c2d4ab69b5046288ec0, type: 3}
+    Name: footsteps9
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 537b9e1fbf8c232f8b22463505aa19df, type: 3}
+    Name: footsteps10
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}

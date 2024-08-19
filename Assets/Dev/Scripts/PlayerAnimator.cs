@@ -89,6 +89,10 @@ public class PlayerAnimator : MonoBehaviour
         anim.SetFloat(IdleSpeedKey, Mathf.Lerp(1, maxIdleSpeed, inputStrength));
         moveParticles.transform.localScale = Vector3.MoveTowards(moveParticles.transform.localScale,
             Vector3.one * inputStrength, 2 * Time.deltaTime);
+        if (inputStrength != 0 && grounded && Random.Range(0, 1) < 5)
+        {
+            AudioManager.Instance.Play("footsteps" + Random.Range(1, 10));
+        }
     }
 
     private void HandleCharacterTilt()
@@ -100,6 +104,7 @@ public class PlayerAnimator : MonoBehaviour
 
     private void OnJumped()
     {
+        AudioManager.Instance.Play("jump");
         anim.SetTrigger(JumpKey);
         anim.ResetTrigger(GroundedKey);
 
@@ -122,8 +127,7 @@ public class PlayerAnimator : MonoBehaviour
             SetColor(landParticles);
 
             anim.SetTrigger(GroundedKey);
-            // todo(kilativ-dotcom): uncomment when implemented
-            // source.PlayOneShot(footsteps[Random.Range(0, footsteps.Length)]);
+            AudioManager.Instance.Play("groundHit");
             moveParticles.Play();
 
             landParticles.transform.localScale = Vector3.one * Mathf.InverseLerp(0, 40, impact);
