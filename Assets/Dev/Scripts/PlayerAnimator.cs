@@ -6,7 +6,7 @@ public class PlayerAnimator : MonoBehaviour
     [Header("References")]
     [SerializeField] private Animator anim;
 
-    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private GameObject sprite;
 
     [Header("Settings")]
     [SerializeField] [Range(1f, 3f)]
@@ -14,6 +14,7 @@ public class PlayerAnimator : MonoBehaviour
 
     [SerializeField] private float maxTilt = 5;
     [SerializeField] private float tiltSpeed = 20;
+    [SerializeField] private bool spriteNormalOrientationIsRight;
 
     [Header("Particles")]
     [SerializeField] private ParticleSystem jumpParticles;
@@ -33,8 +34,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
         player = GetComponent<IPlayerController>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
-        anim = GetComponent<Animator>();
+        anim = sprite.GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -49,7 +49,8 @@ public class PlayerAnimator : MonoBehaviour
     {
         player.Jumped -= OnJumped;
         player.GroundedChanged -= OnGroundedChanged;
-
+        anim.SetFloat(IdleSpeedKey, 0);
+        anim.SetTrigger(GroundedKey);
         moveParticles.Stop();
     }
 
@@ -73,7 +74,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         if (player.FrameInput.x != 0)
         {
-            sprite.flipX = player.FrameInput.x > 0;
+            sprite.transform.localScale = new Vector3(((player.FrameInput.x > 0) == spriteNormalOrientationIsRight) ? -Mathf.Abs(sprite.transform.localScale.x) : Mathf.Abs(sprite.transform.localScale.x), sprite.transform.localScale.y, sprite.transform.localScale.z);
         }
     }
 
