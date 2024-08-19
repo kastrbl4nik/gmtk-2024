@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private Animator anim;
-
-    [SerializeField] private GameObject sprite;
+    private Animator anim;
+    private GameObject sprite;
 
     [Header("Settings")]
     [SerializeField] [Range(1f, 3f)]
@@ -21,6 +19,7 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField] private ParticleSystem launchParticles;
     [SerializeField] private ParticleSystem moveParticles;
     [SerializeField] private ParticleSystem landParticles;
+    [SerializeField] private ParticleSystem transformationParticles;
 
     [Header("Audio Clips")] [SerializeField]
     private AudioClip[] footsteps;
@@ -34,7 +33,6 @@ public class PlayerAnimator : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
         player = GetComponent<IPlayerController>();
-        anim = sprite.GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -43,6 +41,13 @@ public class PlayerAnimator : MonoBehaviour
         player.GroundedChanged += OnGroundedChanged;
 
         moveParticles.Play();
+    }
+
+    public void SetSprite(GameObject newSprite)
+    {
+        transformationParticles.Play();
+        sprite = newSprite;
+        anim = sprite.GetComponent<Animator>();
     }
 
     private void OnDisable()
