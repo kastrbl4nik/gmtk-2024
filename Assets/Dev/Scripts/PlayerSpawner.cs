@@ -12,6 +12,8 @@ public class PlayerSpawner : MonoBehaviour
     private GameObject playerPrefab;
     private Player player;
     private Altar lastAltar;
+    [SerializeField] private int MaxPlayersPerLevel;
+    private int spawnedSPlayers;
 
     private void Awake()
     {
@@ -36,8 +38,10 @@ public class PlayerSpawner : MonoBehaviour
             GetComponent<CameraShake>().ShakeyShakey(pauseBeforeSpawn, 1f);
             yield return new WaitForSeconds(pauseBeforeSpawn);
             Spawn();
+            spawnedSPlayers++;
             yield return new WaitForSeconds(spawnInterval - pauseBeforeSpawn);
-        } while (true);
+        } while (spawnedSPlayers < MaxPlayersPerLevel);
+        StartCoroutine(WaitForPlayerDeathAndRestart());
     }
 
     private void LocateLastAltar()
@@ -62,5 +66,15 @@ public class PlayerSpawner : MonoBehaviour
         Instantiate(spawnEffect, lastAltar.transform.position, Quaternion.identity);
         player = Instantiate(playerPrefab, lastAltar.transform.position, Quaternion.identity).GetComponent<Player>();
         cam.Follow = player.transform;
+    }
+
+    private IEnumerator WaitForPlayerDeathAndRestart()
+    {
+        while (player.IsAlive)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        FindObjectOfType<GameManager>().ReloadScene();
     }
 }
