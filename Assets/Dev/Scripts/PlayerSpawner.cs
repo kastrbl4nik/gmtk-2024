@@ -33,7 +33,7 @@ public class PlayerSpawner : MonoBehaviour
     {
         do
         {
-            FindObjectOfType<AudioManager>().Play("spawn");
+            AudioManager.Instance.Play("spawn");
             yield return new WaitForSeconds(pauseBeforeSpawn);
             Spawn();
             yield return new WaitForSeconds(spawnInterval - pauseBeforeSpawn);

@@ -49,16 +49,16 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        FindObjectOfType<AudioManager>().Play("horror-ambience");
-        FindObjectOfType<AudioManager>().Play("cave-droplets");
+        Instance.Play("horror-ambience");
+        Instance.Play("cave-droplets");
     }
 
-    public void Play(string name)
+    public void Play(string soundName)
     {
-        var sound = Array.Find(Sounds, sound => sound.Name == name);
+        var sound = Array.Find(Sounds, sound => sound.Name == soundName);
         if (sound == null || sound.Source == null)
         {
-            Debug.LogWarning("AudioManager: Cannot find sound " + name);
+            Debug.LogWarning("AudioManager: Cannot find sound " + soundName);
             return;
         }
 
