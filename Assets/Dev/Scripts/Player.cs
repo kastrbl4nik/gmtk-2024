@@ -64,6 +64,7 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
         lifeIndicator = CreateRectangle("Life", initialSize, transform.position + new Vector3(0, 1, 0));
         lifeIndicator.transform.SetParent(transform);
         var lifeRenderer = lifeIndicator.GetComponent<Renderer>();
+        lifeRenderer.sortingOrder = 6;
 
         var elapsedTime = 0f;
         var halfTime = Lifespan / 2;
