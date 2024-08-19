@@ -5,19 +5,24 @@ public class Altar : MonoBehaviour
 {
     [SerializeField] private float pauseBeforeSpawn = 1f;
     [SerializeField] private bool isActive;
+    [SerializeField] private GameObject glow;
+    [SerializeField] private GameObject notGlow;
+    [SerializeField] private GameObject altarLight;
     public bool IsActive => isActive;
-    private GameObject altarLight;
 
     private void Awake()
     {
-        altarLight = transform.GetChild(0).gameObject;
         altarLight.SetActive(isActive);
+        glow.SetActive(isActive);
+        notGlow.SetActive(!isActive);
     }
 
     public void Deactivate()
     {
         isActive = false;
-        altarLight.SetActive(false);
+        altarLight.SetActive(!isActive);
+        glow.SetActive(!isActive);
+        notGlow.SetActive(isActive);
     }
 
     private void Activate()
@@ -31,7 +36,9 @@ public class Altar : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("flame-ignition");
 
         isActive = true;
-        altarLight.SetActive(true);
+        altarLight.SetActive(isActive);
+        glow.SetActive(isActive);
+        notGlow.SetActive(!isActive);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
