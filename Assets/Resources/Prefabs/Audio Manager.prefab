@@ -49,23 +49,27 @@ MonoBehaviour:
     Name: cave-droplets
     Volume: 0.3
     Pitch: 1
+    RandomizePitch: 0
     Loop: 1
     Source: {fileID: 0}
   - Clip: {fileID: 8300000, guid: 0488b9c903bd6894aa9f0e35504e24fe, type: 3}
     Name: horror-ambience
     Volume: 0.15
     Pitch: 1
+    RandomizePitch: 0
     Loop: 1
     Source: {fileID: 0}
   - Clip: {fileID: 8300000, guid: 3c3b2cbf65ce56445b422fb420126338, type: 3}
     Name: flame-ignition
     Volume: 1
     Pitch: 1
+    RandomizePitch: 0
     Loop: 0
     Source: {fileID: 0}
   - Clip: {fileID: 8300000, guid: 9227f7799779ab54fa1ad7588b79b1ac, type: 3}
     Name: spawn
     Volume: 0.3
     Pitch: 1
+    RandomizePitch: 0
     Loop: 0
     Source: {fileID: 0}

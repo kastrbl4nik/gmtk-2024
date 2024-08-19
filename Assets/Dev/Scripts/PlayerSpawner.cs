@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Linq;
 using Cinemachine;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerSpawner : MonoBehaviour
 {
     [SerializeField] private float spawnInterval = 10f;
-    [SerializeField] private float pauseBeforeSpawn = 4.5f;
+    [SerializeField] private float pauseBeforeSpawn = 4.0f;
     [SerializeField] private GameObject spawnEffect;
     private CinemachineVirtualCamera cam;
     private GameObject playerPrefab;
@@ -34,6 +33,7 @@ public class PlayerSpawner : MonoBehaviour
         do
         {
             AudioManager.Instance.Play("spawn");
+            GetComponent<CameraShake>().ShakeyShakey(pauseBeforeSpawn, 1f);
             yield return new WaitForSeconds(pauseBeforeSpawn);
             Spawn();
             yield return new WaitForSeconds(spawnInterval - pauseBeforeSpawn);
