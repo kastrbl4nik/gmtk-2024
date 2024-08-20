@@ -48,3 +48,6 @@ TagManager:
   - name: Foreground
     uniqueID: 2900923381
     locked: 0
+  - name: World Space UI
+    uniqueID: 3887695259
+    locked: 0
