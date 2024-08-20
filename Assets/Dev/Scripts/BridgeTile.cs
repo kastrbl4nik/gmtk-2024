@@ -11,7 +11,6 @@ public class BridgeTile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        AudioManager.Instance.Play("bridgeClick" + Random.Range(1, 4));
         parentBridge.CollisionEnter(collision);
     }
 
