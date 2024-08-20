@@ -206,3 +206,10 @@ MonoBehaviour:
     RandomizePitch: 0
     Loop: 0
     Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 729f8c2fe1e56015187d5ba7d88e2057, type: 3}
+    Name: scalesCreak
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
