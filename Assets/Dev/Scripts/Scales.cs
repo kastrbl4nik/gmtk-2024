@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Scales : MonoBehaviour
 {
@@ -24,7 +26,12 @@ public class Scales : MonoBehaviour
         var rotationAngle = difference * RotationSpeed * Time.fixedDeltaTime;
         currentAngle += rotationAngle;
 
-        currentAngle = Mathf.Clamp(currentAngle, MinAngle, MaxAngle);
+        var clampedAngle = Mathf.Clamp(currentAngle, MinAngle, MaxAngle);
+        if (Math.Abs(clampedAngle - currentAngle) < 0.001 && Random.Range(0f, 1f) < 0.003)
+        {
+            AudioManager.Instance.Play("scalesCreak");
+        }
+        currentAngle = clampedAngle;
 
         transform.localEulerAngles = new Vector3(0f, 0f, currentAngle);
     }
