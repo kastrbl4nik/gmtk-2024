@@ -12,7 +12,7 @@ public class PlayerSpawner : MonoBehaviour
     private GameObject playerPrefab;
     private Player player;
     private Altar lastAltar;
-    [SerializeField] private int MaxPlayersPerLevel;
+    [SerializeField] private int maxPlayersPerLevel;
     private int spawnedSPlayers;
 
     private void Awake()
@@ -40,7 +40,7 @@ public class PlayerSpawner : MonoBehaviour
             Spawn();
             spawnedSPlayers++;
             yield return new WaitForSeconds(spawnInterval - pauseBeforeSpawn);
-        } while (spawnedSPlayers < MaxPlayersPerLevel);
+        } while (spawnedSPlayers < maxPlayersPerLevel);
         StartCoroutine(WaitForPlayerDeathAndRestart());
     }
 
@@ -76,5 +76,10 @@ public class PlayerSpawner : MonoBehaviour
         }
 
         FindObjectOfType<GameManager>().ReloadScene();
+    }
+
+    public int GetMaxPlayersPerLevel()
+    {
+        return maxPlayersPerLevel;
     }
 }
