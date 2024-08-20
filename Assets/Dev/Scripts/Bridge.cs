@@ -91,6 +91,7 @@ public class Bridge : MonoBehaviour
         var weightable = otherGameObject.GetComponent<IWeightable>();
         if (weightable != null)
         {
+            AudioManager.Instance.Play("bridgeClick" + Random.Range(1, 4));
             if (!objectsOnBridge.TryAdd(otherGameObject, 1))
             {
                 objectsOnBridge[otherGameObject] += 1;
