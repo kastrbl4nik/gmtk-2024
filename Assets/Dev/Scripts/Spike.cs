@@ -9,7 +9,7 @@ public class Spike : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            FindObjectOfType<AudioManager>().Play("spikeHit");
+            AudioManager.Instance.Play("spikeHit");
             var player = other.gameObject.GetComponent<Player>();
             player.Die();
         }

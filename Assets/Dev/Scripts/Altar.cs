@@ -33,7 +33,7 @@ public class Altar : MonoBehaviour
             .FirstOrDefault()
             .Deactivate();
 
-        FindObjectOfType<AudioManager>().Play("flame-ignition");
+        AudioManager.Instance.Play("flame-ignition");
 
         isActive = true;
         altarLight.SetActive(isActive);
