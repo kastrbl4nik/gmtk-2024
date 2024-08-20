@@ -22,10 +22,10 @@ public class Door : MonoBehaviour
             var player = other.gameObject.GetComponent<Player>();
             if (player == null || !player.IsHoldingKey)
             {
-                FindObjectOfType<AudioManager>().Play("doorIsClosed");
+                AudioManager.Instance.Play("doorIsClosed");
                 return;
             }
-            FindObjectOfType<AudioManager>().Play("doorOpen");
+            AudioManager.Instance.Play("doorOpen");
             animator.SetBool(IsOpen, true);
             player.UseKey();
             capsuleCollider2D.isTrigger = true;

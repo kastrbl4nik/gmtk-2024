@@ -157,3 +157,52 @@ MonoBehaviour:
     RandomizePitch: 0
     Loop: 0
     Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 3d1fb02e0890fe26aa73b23097622de1, type: 3}
+    Name: bridgeClick1
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 919cae3ade77359ba839d93eea083fc6, type: 3}
+    Name: bridgeClick2
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 82e24a99eeeca6bba8d1264b8dd04644, type: 3}
+    Name: bridgeClick3
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 21eb90cf3c209f11bb7c7d5b41619b1d, type: 3}
+    Name: bridgeClick4
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 772e59fe5571209999f1d4445864500a, type: 3}
+    Name: doorIsClosed
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: d4a76f25526328233900301383163e12, type: 3}
+    Name: doorOpen
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: b535620c4666633e985e81ac3d7b8c0f, type: 3}
+    Name: keyPickup
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}

@@ -90,7 +90,7 @@ public class Player : MonoBehaviour, IWeightable, IKeyable
         {
             Key = other.gameObject.transform.parent.gameObject;
             Key.GetComponentInChildren<CapsuleCollider2D>().enabled = false;
-            FindObjectOfType<AudioManager>().Play("keyPickup");
+            AudioManager.Instance.Play("keyPickup");
             StartCoroutine(MoveKeyToContainer());
         }
     }
