@@ -49,7 +49,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        Instance.Play("horror-ambience");
+        Instance.Play("main-theme");
         Instance.Play("cave-droplets");
     }
 

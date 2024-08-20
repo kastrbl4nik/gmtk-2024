@@ -20,9 +20,9 @@ public class Altar : MonoBehaviour
     public void Deactivate()
     {
         isActive = false;
-        altarLight.SetActive(!isActive);
-        glow.SetActive(!isActive);
-        notGlow.SetActive(isActive);
+        altarLight.SetActive(false);
+        glow.SetActive(false);
+        notGlow.SetActive(true);
     }
 
     private void Activate()
@@ -36,9 +36,9 @@ public class Altar : MonoBehaviour
         AudioManager.Instance.Play("flame-ignition");
 
         isActive = true;
-        altarLight.SetActive(isActive);
-        glow.SetActive(isActive);
-        notGlow.SetActive(!isActive);
+        altarLight.SetActive(true);
+        glow.SetActive(true);
+        notGlow.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
