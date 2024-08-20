@@ -40,6 +40,7 @@ public class AudioManager : MonoBehaviour
         foreach (var sound in Sounds)
         {
             sound.Source = gameObject.AddComponent<AudioSource>();
+            DontDestroyOnLoad(sound.Source);
             sound.Source.clip = sound.Clip;
             sound.Source.volume = sound.Volume;
             sound.Source.pitch = sound.Pitch;
@@ -55,10 +56,15 @@ public class AudioManager : MonoBehaviour
 
     public void Play(string soundName)
     {
+        Debug.Log("Sounds size is " + Sounds.Length);
         var sound = Array.Find(Sounds, sound => sound.Name == soundName);
         if (sound == null || sound.Source == null)
         {
-            Debug.LogWarning("AudioManager: Cannot find sound " + soundName);
+            Debug.LogWarning("AudioManager: Cannot find sound " + soundName + ": " + sound);
+            if (sound != null)
+            {
+                Debug.Log("source is " + sound.Source);
+            }
             return;
         }
 
