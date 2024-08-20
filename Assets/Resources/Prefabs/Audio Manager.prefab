@@ -206,8 +206,22 @@ MonoBehaviour:
     RandomizePitch: 0
     Loop: 0
     Source: {fileID: 0}
-  - Clip: {fileID: 8300000, guid: 729f8c2fe1e56015187d5ba7d88e2057, type: 3}
-    Name: scalesCreak
+  - Clip: {fileID: 8300000, guid: 2049593f1af966a4fb6e779eb5d776a8, type: 3}
+    Name: main-theme
+    Volume: 0.28
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 1e359f10665f6e3c3b8788ed9d1a7634, type: 3}
+    Name: mouseHover
+    Volume: 0.3
+    Pitch: 1
+    RandomizePitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Clip: {fileID: 8300000, guid: 6dac69db3c363c9df8e91811b08e23a0, type: 3}
+    Name: mouseClick
     Volume: 0.3
     Pitch: 1
     RandomizePitch: 0
