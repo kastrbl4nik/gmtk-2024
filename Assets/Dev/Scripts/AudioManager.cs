@@ -56,15 +56,10 @@ public class AudioManager : MonoBehaviour
 
     public void Play(string soundName)
     {
-        Debug.Log("Sounds size is " + Sounds.Length);
         var sound = Array.Find(Sounds, sound => sound.Name == soundName);
         if (sound == null || sound.Source == null)
         {
-            Debug.LogWarning("AudioManager: Cannot find sound " + soundName + ": " + sound);
-            if (sound != null)
-            {
-                Debug.Log("source is " + sound.Source);
-            }
+            Debug.LogWarning("AudioManager: Cannot find sound " + soundName);
             return;
         }
 
