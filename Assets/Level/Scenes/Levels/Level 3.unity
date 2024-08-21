@@ -564,7 +564,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.707915, y: 1.8932334, z: -9.7235155}
+  m_LocalPosition: {x: -9.720537, y: 1.8932135, z: -9.7235155}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1402,6 +1402,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 887918425009006282, guid: 02d2fc30efa603d4694d2bccb498b96d, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1641914484}
+    - target: {fileID: 887918425009006282, guid: 02d2fc30efa603d4694d2bccb498b96d, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1641914484}
+    - target: {fileID: 887918425009006282, guid: 02d2fc30efa603d4694d2bccb498b96d, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 887918425009006282, guid: 02d2fc30efa603d4694d2bccb498b96d, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 1487669571563971027, guid: 02d2fc30efa603d4694d2bccb498b96d, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1641914484}
+    - target: {fileID: 1487669571563971027, guid: 02d2fc30efa603d4694d2bccb498b96d, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1641914484}
     - target: {fileID: 1654220548789074360, guid: 02d2fc30efa603d4694d2bccb498b96d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2895,6 +2919,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e910b038672a944ea938e22b302868f, type: 3}
+--- !u!114 &1641914484 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2248285056307571959, guid: 4e910b038672a944ea938e22b302868f, type: 3}
+  m_PrefabInstance: {fileID: 1641914483}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 138066d695617ce41b4d952f45dfaec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1712571391
 GameObject:
   m_ObjectHideFlags: 0
