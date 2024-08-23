@@ -3,13 +3,13 @@
 [GMTK Game Jam 2024](https://itch.io/jam/gmtk-2024) entry made in unity in under 96 hours.
 
 ### Theme
- \-
+Built to scale
 
 ### Working Title
- \-
+Mushroom Moments
 
 ### Concept statement
- \-
+Guide the Sutlebs, short-lived mushroom creatures with a shared consciousness, as they race against time to escape their dark cave in search of the legendary sunlit world. Manage the scale of time and limited lives to help Oyster achieve his dream of freedom.
 
 ### Made by:
 
