@@ -25,15 +25,14 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
 
         if (Instance == null)
         {
+            DontDestroyOnLoad(gameObject);
             Instance = this;
         }
         else
         {
-            Destroy(gameObject);
             return;
         }
 
@@ -50,12 +49,17 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        Instance.Play("main-theme");
-        Instance.Play("cave-droplets");
+        Play("main-theme");
+        Play("cave-droplets");
     }
 
     public void Play(string soundName)
     {
+        if (Instance != this)
+        {
+            Instance.Play(soundName);
+            return;
+        }
         var sound = Array.Find(Sounds, sound => sound.Name == soundName);
         if (sound == null || sound.Source == null)
         {
